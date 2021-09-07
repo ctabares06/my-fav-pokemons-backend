@@ -4,7 +4,7 @@
     "password": "postgres",
     "database": "my_fav_pokemons",
     "host": "127.0.0.1",
-    "dialect": "pgsql"
+    "dialect": "postgres"
   },
   "test": {
     "username": "root",

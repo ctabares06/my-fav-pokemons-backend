@@ -1,8 +1,9 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+const { encription } = require('../utils');
+
 module.exports = (sequelize, DataTypes) => {
+
   class User extends Model {
     /**
      * Helper method for defining associations.
@@ -13,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
+
   User.init({
     firstName: DataTypes.STRING,
     lastname: DataTypes.STRING,
@@ -21,6 +23,15 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+    hooks: {
+      beforeCreate: (user, options) => {
+        return encription.encriptPassword(user.password)
+          .then(hash => {
+            user.password = hash;
+          })
+      }
+    }
   });
+
   return User;
 };

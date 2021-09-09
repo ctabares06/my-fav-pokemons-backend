@@ -7,7 +7,13 @@ const loginController = (req, res, next) => {
       expires: new Date(Date.now() + 900000), httpOnly: true
     }).send(user));
 }
+
+const logoutController = (req, res, next) => {
+  res.clearCookie('auth_pok');
+  return res.send();
+}
  
 module.exports = {
   loginController,
+  logoutController,
 }

@@ -11,6 +11,18 @@ const encriptPassword = (password) =>
       })
   });
 
+const checkPassword = (password, hash) =>
+  new Promise((resolve, reject) => {
+    bcrypt.compare(password, hash, (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+
+      return resolve(result);
+    })
+  })
+
 module.exports = {
   encriptPassword,
+  checkPassword,
 }

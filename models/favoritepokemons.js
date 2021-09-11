@@ -14,8 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   FavoritePokemons.init({
-    user_id: DataTypes.INTEGER,
-    pokemon_id: DataTypes.INTEGER
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    pokemon_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'FavoritePokemons',

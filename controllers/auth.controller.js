@@ -6,7 +6,9 @@ const loginController = (req, res, next) => {
   return loginService(email, password)
     .then(user => res.cookie("auth_pok", "want some cookies?", {
       expires: new Date(Date.now() + 900000), httpOnly: true
-    }).send(user));
+    })
+    .send(user))
+    .catch(next);
 }
 
 const logoutController = (req, res, next) => {

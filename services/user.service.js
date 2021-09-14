@@ -1,9 +1,9 @@
 const { User } = require('../models');
 
-const createUserService = (user) =>
+const createUser = (user) =>
   User.create(user);
 
-const getUsersService = () =>
+const getUsers = () =>
   User.findAll({
     attributes: [
       'firstName',
@@ -12,7 +12,7 @@ const getUsersService = () =>
     ]
   })
 
-const getUserByIdService = (id) =>
+const getUserById = (id) =>
   User.findOne({ 
     where: {id},
     attributes: [
@@ -23,7 +23,7 @@ const getUserByIdService = (id) =>
    });
 
 module.exports = {
-  createUserService,
-  getUserByIdService,
-  getUsersService, 
+  createUser,
+  getUserById,
+  getUsers, 
 }

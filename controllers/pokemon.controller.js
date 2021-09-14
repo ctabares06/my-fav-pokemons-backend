@@ -1,8 +1,8 @@
-const { getFullGenerations } = require('../services/pokemon.service');
+const pokemonService = require('../services/pokemon.service');
 
 module.exports = {
   getGenerationsController(req, res, next) {
-    return getFullGenerations()
+    return pokemonService.getFullGenerations()
       .then(generations => res.send(generations))
       .catch(err => next(err));
   }

@@ -1,7 +1,7 @@
 const { User } = require('../models');
 const { encription: { checkPassword } } = require('../utils');
 
-const loginService = (email, password) =>
+const login = (email, password) =>
   User.findOne({
     where: { email },
     attributes: ['firstName', 'lastname', 'email', 'password'],
@@ -22,5 +22,5 @@ const loginService = (email, password) =>
     })
 
 module.exports = {
-  loginService,
+  login,
 }

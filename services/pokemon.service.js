@@ -5,7 +5,7 @@ const groupVersions = versions => versions.reduce((acc, version) => {
   return acc;
 }, []);
 
-const getGenerationByNameService = (name) =>
+const getGenerationByName = (name) =>
   fetch.get(`generation/${name}`)
     .then((response => {
       if (!response.status) {
@@ -37,7 +37,7 @@ const getGenerationsService = () =>
 
 const getFullGenerations = () =>
   getGenerationsService()
-    .then(generations => generations.results.map(({ name }) => getGenerationByNameService(name)))
+    .then(generations => generations.results.map(({ name }) => getGenerationByName(name)))
     .then(responses => Promise.all(responses))
     .then(generations => generations.map(({
       version_groups,

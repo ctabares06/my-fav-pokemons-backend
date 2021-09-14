@@ -1,3 +1,4 @@
+const { UnauthorizedError } = require('../errors');
 const { User } = require('../models');
 const { encription: { checkPassword } } = require('../utils');
 
@@ -14,11 +15,11 @@ const login = (email, password) =>
               return { ...user.dataValues, password: "" };
             }
 
-            throw new Error("Wrong email or password");
+            throw new UnauthorizedError("Wrong email or password");
           });
       }
 
-      throw new Error("Wrong email or password");
+      throw new UnauthorizedError("Wrong email or password");
     })
 
 module.exports = {

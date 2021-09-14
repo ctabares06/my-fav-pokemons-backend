@@ -1,7 +1,6 @@
 const authService = require('../services/auth.service');
 
 const login = (req, res, next) => {
-  console.log(req.body);
   const { email, password } = req.body;
   return authService.login(email, password)
     .then(user => res.cookie("auth_pok", "want some cookies?", {

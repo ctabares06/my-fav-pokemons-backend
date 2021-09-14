@@ -1,8 +1,8 @@
 const { Router } = require('express');
-const { getGenerationsController } = require('../controllers/pokemon.controller');
+const pokemonController = require('../controllers/pokemon.controller');
 
 const router = Router();
 
-router.get('/generations', getGenerationsController);
+router.get('/generations', pokemonController.getGenerations);
 
 module.exports = router;

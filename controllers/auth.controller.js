@@ -1,6 +1,6 @@
 const authService = require('../services/auth.service');
 
-const loginController = (req, res, next) => {
+const login = (req, res, next) => {
   console.log(req.body);
   const { email, password } = req.body;
   return authService.login(email, password)
@@ -11,12 +11,12 @@ const loginController = (req, res, next) => {
     .catch(next);
 }
 
-const logoutController = (req, res, next) => {
+const logout = (req, res, next) => {
   res.clearCookie('auth_pok');
   return res.send();
 }
  
 module.exports = {
-  loginController,
-  logoutController,
+  login,
+  logout,
 }

@@ -35,10 +35,10 @@ const getFullGenerations = () =>
   getGenerationsService()
     .then(generations => generations.results.map(({ name }) =>
       getGenerationByName(name).then(({ version_groups, main_region, id }) =>
-        Promise.all(version_groups.map(({ name: version_name }) =>
-          getVersionGroupByName(version_name)
-            .then(({ versions }) => versions.flat())
-        ))
+        Promise.all(version_groups.map(({ name: version_name }) => getVersionGroupByName(version_name)
+            .then(({ versions }) => versions)
+          ))
+          .then(games => games.flat())
           .then(games => ({
             id,
             name,
@@ -53,8 +53,10 @@ const getFullGenerationsAsync = async () => {
     const { results: allGenerations } = await getGenerationsService();
     const generationsWithGames = allGenerations.map(async ({ name }) => {
       const { version_groups, main_region, id } = await getGenerationByName(name);
-      const gamesArray = version_groups.map(({ name: version_name }) => getVersionGroupByName(version_name));
-      const games = await Promise.all(gamesArray);
+      const gamesArray = version_groups.map(({ name: version_name }) => { 
+        return getVersionGroupByName(version_name).then(({ versions }) => versions);
+      });
+      const games = await Promise.all(gamesArray).then(games => games.flat());
 
       return {
         id,

@@ -5,5 +5,11 @@ module.exports = {
     return pokemonService.getFullGenerations()
       .then(generations => res.send(generations))
       .catch(err => next(err));
+  },
+  getPokemonsByGeneration(req, res, next) {
+    return pokemonService.getPokemonByName(req.params.name)
+      .then(response => res.send(response))
+      .catch(err => next(err));
   }
+  
 }

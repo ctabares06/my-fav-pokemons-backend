@@ -5,7 +5,7 @@ const { encription: { checkPassword } } = require('../utils');
 const login = (email, password) =>
   User.findOne({
     where: { email },
-    attributes: ['firstName', 'lastname', 'email', 'password'],
+    attributes: ['id', 'firstName', 'lastname', 'email', 'password'],
   })
     .then(user => {
       if (user) {

@@ -13,9 +13,27 @@ const getUsers = () =>
   })
 
 const getUserById = (id) =>
-  User.findOne({ 
-    where: {id}
-   });
+  User.findByPk(id, {
+    attributes: ['id', 'firstName', 'lastname', 'email'],
+    include: [
+      { 
+        model: FavoritePokemons,
+        attributes: ['user_id', 'pokemon_id']
+      }
+    ]
+  });
+
+const getUserByMail = (email) =>
+User.findOne({
+  where: { email },
+  attributes: ['id', 'firstName', 'lastname', 'email', 'password'],
+  include: [
+    { 
+      model: FavoritePokemons, 
+      attributes: ['user_id', 'pokemon_id']
+    },
+  ],
+})
 
 const AddFavoritePokemon = (data) =>
    FavoritePokemons.create(data);
@@ -25,4 +43,5 @@ module.exports = {
   getUserById,
   getUsers, 
   AddFavoritePokemon,
+  getUserByMail,
 }

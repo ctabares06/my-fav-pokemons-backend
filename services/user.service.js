@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, FavoritePokemons } = require('../models');
 
 const createUser = (user) =>
   User.create(user);
@@ -14,16 +14,15 @@ const getUsers = () =>
 
 const getUserById = (id) =>
   User.findOne({ 
-    where: {id},
-    attributes: [
-      'firstName',
-      'lastname',
-      'email',
-    ]
+    where: {id}
    });
+
+const AddFavoritePokemon = (data) =>
+   FavoritePokemons.create(data);
 
 module.exports = {
   createUser,
   getUserById,
   getUsers, 
+  AddFavoritePokemon,
 }

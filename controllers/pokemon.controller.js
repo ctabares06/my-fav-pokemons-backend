@@ -7,7 +7,7 @@ module.exports = {
       .catch(err => next(err));
   },
   getPokemonsByGeneration(req, res, next) {
-    return pokemonService.getPokemonByName(req.params.name)
+    return pokemonService.getPokemonsByGeneration(req.params.name)
       .then(response => res.send(response))
       .catch(err => next(err));
   }

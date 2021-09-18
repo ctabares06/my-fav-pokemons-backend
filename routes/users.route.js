@@ -8,5 +8,6 @@ const { createUserSchema } = require('../validations')
 router.get('/:id', checkCookie, userController.getUserById);
 router.get('/', checkCookie, userController.getusers);
 router.post('/', validationFields(createUserSchema), userController.createUser);
+router.post('/favorite', userController.AddFavoritePokemon);
 
 module.exports = router;

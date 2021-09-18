@@ -1,11 +1,13 @@
 const { UnauthorizedError } = require('../errors');
-const { User } = require('../models');
+const { User, FavoritePokemons } = require('../models');
 const { encription: { checkPassword } } = require('../utils');
 
 const login = (email, password) =>
   User.findOne({
     where: { email },
-    attributes: ['id', 'firstName', 'lastname', 'email', 'password'],
+    include: [
+      { model: FavoritePokemons }
+    ],
   })
     .then(user => {
       if (user) {

@@ -17,10 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
     },
     pokemon_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
     }
   }, {
     sequelize,

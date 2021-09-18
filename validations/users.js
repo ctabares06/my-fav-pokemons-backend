@@ -12,7 +12,13 @@ const createUserSchema = Joi.object({
   password: Joi.string().required(),
 })
 
+const addUserFavSchema = Joi.object({
+  user_id: Joi.number().required(),
+  pokemon_id: Joi.number().required(),
+})
+
 module.exports = {
   loginUserSchema,
   createUserSchema,
+  addUserFavSchema,
 }

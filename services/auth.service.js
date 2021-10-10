@@ -1,6 +1,6 @@
 const { UnauthorizedError } = require('../errors');
 const userService = require('./user.service');
-const { encription: { checkPassword } } = require('../utils');
+const { encription: { checkPassword, encriptPassword, encode64 } } = require('../utils');
 
 const login = (email, password) =>
   userService.getUserByMail(email)
@@ -9,11 +9,14 @@ const login = (email, password) =>
         return checkPassword(password, user.password)
           .then(isSame => {
             if (isSame) {
-              return { ...user.dataValues, password: "" };
+              return encriptPassword(user.id.toString());
             }
-
+            
             throw new UnauthorizedError("Wrong email or password");
-          });
+          })
+          .then((cryptId) => {
+            return { ...user.dataValues, password: "", token: encode64(cryptId.toString()) };
+          })
       }
 
       throw new UnauthorizedError("Wrong email or password");

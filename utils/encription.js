@@ -11,9 +11,6 @@ const encriptPassword = (password) =>
       })
   });
 
-const encode64 = (text) => Buffer.from(text).toString('base64');
-const decode64 = (hash) => Buffer.from(hash, 'base64').toString();
-
 const checkPassword = (password, hash) =>
   new Promise((resolve, reject) => {
     bcrypt.compare(password, hash, (err, result) => {
@@ -28,6 +25,4 @@ const checkPassword = (password, hash) =>
 module.exports = {
   encriptPassword,
   checkPassword,
-  encode64,
-  decode64,
 }

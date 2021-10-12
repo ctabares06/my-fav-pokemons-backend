@@ -1,13 +1,12 @@
 const authService = require('../services/auth.service');
-const { encription: { encode64 } } = require('../utils');
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
   return authService.login(email, password)
-    .then(user => res.cookie("auth_pok", user.token, {
-      expires: new Date(Date.now() + 900000), httpOnly: true
+    .then(user => {
+      req.session.user = user.id;
+      return res.send(user);
     })
-    .send(user))
     .catch(next);
 }
 

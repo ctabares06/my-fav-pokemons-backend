@@ -9,7 +9,8 @@ const login = (email, password) =>
         return checkPassword(password, user.password)
           .then(isSame => {
             if (isSame) {
-              return { ...user.dataValues, password: "" };
+              delete user.dataValues.password;
+              return user;
             }
             
             throw new UnauthorizedError("Wrong email or password");

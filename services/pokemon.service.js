@@ -67,33 +67,12 @@ const getFullGenerations = () =>
 
 const getPokemonsByGeneration = (text) =>
   getGenerationByName(text)
-    .then(({ pokemon_species }) => 
-      pokemon_species.map(({ name }) => 
+    .then(({ pokemon_species }) =>
+      pokemon_species.map(({ name }) =>
         getPokemonByName(name).then(pokemonFilterData)
       )
     )
     .then(promises => Promise.all(promises));
-
-
-const getFullGenerationsAsync = async () => {
-  const { results: allGenerations } = await getGenerationsService();
-  const generationsWithGames = allGenerations.map(async ({ name }) => {
-    const { version_groups, main_region, id } = await getGenerationByName(name);
-    const gamesArray = version_groups.map(({ name: version_name }) => {
-      return getVersionGroupByName(version_name).then(({ versions }) => versions);
-    });
-    const games = await Promise.all(gamesArray).then(games => games.flat());
-
-    return {
-      id,
-      name,
-      main_region,
-      games,
-    }
-  });
-
-  return Promise.all(generationsWithGames);
-}
 
 module.exports = {
   getFullGenerations,

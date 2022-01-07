@@ -2,6 +2,7 @@ const { fetch } = require('../utils');
 const { ServerInternalError } = require('../errors');
 
 const pokemonFilterData = (pokemon) => ({
+  id: pokemon.id,
   sprite: pokemon.sprites.front_default,
   name: pokemon.name,
   types: pokemon.types.map(({ type }) => type.name),
@@ -47,6 +48,16 @@ const getPokemonByName = (name) =>
       return response.data;
     }));
 
+const getPokemonById = (id) =>
+  fetch.get(`pokemon/${id}`)
+    .then((response => {
+      if (!response.status) {
+        throw new ServerInternalError('An error ocurred while executing the request');
+      }
+
+      return pokemonFilterData(response.data);
+    }));
+
 const getFullGenerations = () =>
   getGenerationsService()
     .then(generations => generations.results.map(({ name }) =>
@@ -77,4 +88,5 @@ const getPokemonsByGeneration = (text) =>
 module.exports = {
   getFullGenerations,
   getPokemonsByGeneration,
+  getPokemonById,
 }

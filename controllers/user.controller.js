@@ -17,7 +17,7 @@ module.exports = {
       .then(user => res.send(user))
       .catch(next);
   },
-  AddFavoritePokemon(req, res, next){
+  AddFavoritePokemon(req, res, next) {
     return userService.AddFavoritePokemon(req.body)
       .then(favorite => res.send(favorite))
       .catch(next);

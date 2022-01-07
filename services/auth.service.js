@@ -9,12 +9,12 @@ const login = (email, password) =>
         return checkPassword(password, user.password)
           .then(isSame => {
             if (isSame) {
-              delete user.dataValues.password;
+              delete user.password;
               return user;
             }
-            
+
             throw new UnauthorizedError("Wrong email or password");
-        })
+          })
       }
 
       throw new UnauthorizedError("Wrong email or password");

@@ -49,13 +49,44 @@ const getUserByMail = (email) =>
     ],
   }).then(FavoritePokemonsByUser)
 
+const getUserPokemonsByIds = (ids) =>
+  Promise.all(ids.map(id =>
+    getPokemonById(id)
+  ))
+
+
 const AddFavoritePokemon = (data) =>
-  FavoritePokemons.create(data);
+  FavoritePokemons.create(data)
+    .then(() => FavoritePokemons.findAll({
+      attributes: [
+        'user_id',
+        'pokemon_id',
+      ]
+    }))
+    .then(reducePokemonToId)
+    .then(getUserPokemonsByIds);
+
+const removeFavoritePokemon = (data) =>
+  FavoritePokemons.destroy({
+    where: {
+      user_id: data.user_id,
+      pokemon_id: data.pokemon_id
+    }
+  })
+    .then(() => FavoritePokemons.findAll({
+      attributes: [
+        'user_id',
+        'pokemon_id',
+      ]
+    }))
+    .then(reducePokemonToId)
+    .then(getUserPokemonsByIds);
 
 module.exports = {
   createUser,
   getUserById,
   getUsers,
   AddFavoritePokemon,
+  removeFavoritePokemon,
   getUserByMail,
 }

@@ -19,7 +19,13 @@ module.exports = {
   },
   AddFavoritePokemon(req, res, next) {
     return userService.AddFavoritePokemon(req.body)
-      .then(favorite => res.send(favorite))
+      .then(favorites => res.send(favorites))
       .catch(next);
+  },
+  removeFavoritePokemon(req, res, next) {
+    const { user_id, pokemon_id } = req.params;
+    return userService.removeFavoritePokemon({ user_id, pokemon_id })
+      .then(favorites => res.send(favorites))
+      .catch(next)
   }
 }
